@@ -23,7 +23,7 @@ public class JdbcStudentRepository implements StudentRepository {
             VALUES (?, ?, ?, ?)
             RETURNING id
             """;
-        try (Connection c = db.openConnection();            // <<< ajuste getConnection/openConnection conforme sua classe Database
+        try (Connection c = db.openConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, s.getName());
             ps.setString(2, s.getCpf());
@@ -81,13 +81,13 @@ public class JdbcStudentRepository implements StudentRepository {
                 return rs.next() ? Optional.of(map(rs)) : Optional.empty();
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao buscar por id", e); // <<< propaga causa
+            throw new RuntimeException("Erro ao buscar por id", e);
         }
     }
 
     @Override
     public Optional<Student> findByCpf(String cpfDigits) {
-        String sql = "SELECT * FROM students WHERE cpf=?";          // <<< era DELETE
+        String sql = "SELECT * FROM students WHERE cpf=?";
         try (Connection c = db.openConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, cpfDigits);
@@ -108,8 +108,8 @@ public class JdbcStudentRepository implements StudentRepository {
             """;
         try (Connection c = db.openConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setInt(1, size);               // <<< LIMIT = size (antes estava page)
-            ps.setInt(2, page * size);        // <<< OFFSET = page * size
+            ps.setInt(1, size);
+            ps.setInt(2, page * size);
             try (ResultSet rs = ps.executeQuery()) {
                 List<Student> out = new ArrayList<>();
                 while (rs.next()) out.add(map(rs));

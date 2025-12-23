@@ -4,14 +4,13 @@ import java.time.LocalDate;
 
 
 public class Student {
-    // ======= Atributos =======
+
     private Long id;
     private String name;
     private final String cpf;
     private String email;
     private LocalDate birthDate;
 
-    // ======= Construtores =======
 
     public Student(Long id, String name, String cpf, String email, LocalDate birthDate) {
         this.id = id;
@@ -26,7 +25,6 @@ public class Student {
     }
 
 
-    // ======= Validações internas =======
 
     private static String notBlank(String s, String msg) {
         if (s == null || s.trim().isEmpty()) {
@@ -40,7 +38,6 @@ public class Student {
     }
 
 
-    // ======= Setters com validação =======
 
     public void setName(String name) {
         String n = notBlank(name, "Nome obrigatório");
@@ -66,7 +63,6 @@ public class Student {
         this.email = e;
     }
 
-    //getters e setters
 
     public Long getId() {
         return id;
